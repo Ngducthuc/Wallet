@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .input-field {
+            margin-top: 20px;
+            display: none;
+        }
+        input {
+            padding: 10px;
+            width: 90%;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .submit-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wallet Interface</h1>
+        <button id="createWalletBtn">Tạo Ví</button>
+        <button id="connectWalletBtn">Kết Nối Ví</button>
+
+        <div id="createWalletField" class="input-field">
+            <h3>Nhập Mật Khẩu:</h3>
+            <input type="password" id="createPassword" placeholder="Nhập mật khẩu...">
+            <button class="submit-btn" onclick="handleCreateWallet()">Xác nhận</button>
+        </div>
+
+        <div id="connectWalletField" class="input-field">
+            <h3>Nhập Mật Khẩu:</h3>
+            <input type="password" id="connectPassword" placeholder="Nhập mật khẩu...">
+            <button class="submit-btn" onclick="handleConnectWallet()">Xác nhận</button>
+        </div>
+    </div>
+
+    <script>
+        const createWalletBtn = document.getElementById('createWalletBtn');
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        const createWalletField = document.getElementById('createWalletField');
+        const connectWalletField = document.getElementById('connectWalletField');
+        createWalletBtn.addEventListener('click', () => {
+            createWalletField.style.display = 'block';
+            connectWalletField.style.display = 'none';
+        });
+        connectWalletBtn.addEventListener('click', () => {
+            connectWalletField.style.display = 'block';
+            createWalletField.style.display = 'none';
+        });
+    
+        function CreateWalletApi(password) {
+            const DataPass = {
+                password: password
+            };
+            if (password != null) {
+                fetch('http://localhost:5000/generate-keys', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(DataPass)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Wallet_address:', data.Wallet_address);
+                    if (data.encrypted_private_key && data.iv && data.salt) {
+                        localStorage.setItem('encrypted_private_key', data.encrypted_private_key);
+                        localStorage.setItem('iv', data.iv);
+                        localStorage.setItem('salt', data.salt);
+                    } else {
+                        console.error('Dữ liệu từ API thiếu hoặc không hợp lệ.');
+                    }
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+            } else {
+                console.log('Password is empty!');
+            }
+        }
+        function handleCreateWallet() {
+            const password = document.getElementById('createPassword').value;
+            CreateWalletApi(password);
+        }
+        function Ping_Connect_Wallet(password) {
+            const encrypted_private_key = localStorage.getItem('encrypted_private_key');
+            const iv = localStorage.getItem('iv');
+            const salt = localStorage.getItem('salt');
+
+            // Kiểm tra dữ liệu từ LocalStorage
+            if (!encrypted_private_key || !iv || !salt) {
+                console.error('Dữ liệu LocalStorage bị thiếu!');
+                alert('Dữ liệu ví không đầy đủ. Vui lòng kiểm tra lại.');
+                return;
+            }
+
+            const DataCon = {
+                encrypted_private_key: encrypted_private_key,
+                iv: iv,
+                salt: salt,
+                password: password
+            };
+
+            fetch('http://localhost:5000/connect-wallet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(DataCon)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Kết nối API thất bại!');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Code:', data.Code);
+                console.log('Decrypted Private Key:', data.decrypted_private_key);
+
+                if (data.Code === 200) {
+                    alert('Kết nối ví thành công!');
+                } else {
+                    alert('Mật khẩu không đúng hoặc dữ liệu không hợp lệ!');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi kết nối:', error);
+                alert('Kết nối API thất bại. Vui lòng thử lại!');
+            });
+        }
+
+        function handleConnectWallet() {
+            const password = document.getElementById('connectPassword').value;
+            if (!password) {
+                alert('⚠️ Vui lòng nhập mật khẩu!');
+                return;
+            }
+            Ping_Connect_Wallet(password);
+        }
+
+    </script>
+    
+</body>
+</html>

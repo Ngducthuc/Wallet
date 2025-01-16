@@ -1,0 +1,208 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background-color: #202225;
+    color: white;
+    min-height: 100vh;
+}
+
+.profile-header {
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #1a1b1e;
+}
+
+.profile-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4fc3f7, #2196f3);
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-name {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #ffffff;
+}
+
+.profile-address {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #8a8f98;
+    font-size: 14px;
+}
+
+.ethereum-icon {
+    color: #8a8f98;
+    font-size: 14px;
+}
+
+.join-date {
+    color: #8a8f98;
+    margin-left: 12px;
+    font-size: 14px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: #8a8f98;
+    cursor: pointer;
+    padding: 8px;
+    font-size: 20px;
+}
+
+.nav-container {
+    background-color: #1a1b1e;
+    padding: 0 32px;
+}
+
+.navigation {
+    display: flex;
+    gap: 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item {
+    padding: 16px 0;
+    color: #8a8f98;
+    cursor: pointer;
+    font-size: 15px;
+    position: relative;
+}
+
+.nav-item.active {
+    color: white;
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #2196f3;
+}
+
+.filters {
+    padding: 16px 32px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background-color: #1a1b1e;
+}
+
+.filter-button {
+    background-color: #2a2d31;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    height: 36px;
+}
+
+.search-bar {
+    flex-grow: 1;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 12px 8px 36px;
+    background-color: #2a2d31;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    height: 36px;
+}
+
+.search-input::placeholder {
+    color: #8a8f98;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8a8f98;
+}
+
+.view-options {
+    display: flex;
+    gap: 8px;
+}
+
+.view-button {
+    background-color: #2a2d31;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #8a8f98;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    padding: 120px 32px;
+    background-color: #1a1b1e;
+    min-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.empty-message {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.back-button {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.items-count {
+    color: #8a8f98;
+    font-size: 14px;
+    padding-left: 32px;
+    background-color: #1a1b1e;
+    padding-top: 16px;
+}

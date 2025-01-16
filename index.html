@@ -1,198 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallet Interface</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .input-field {
-            margin-top: 20px;
-            display: none;
-        }
-        input {
-            padding: 10px;
-            width: 90%;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .submit-btn {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #28a745;
-            color: white;
-            transition: background-color 0.3s;
-        }
-        .submit-btn:hover {
-            background-color: #218838;
-        }
-    </style>
+    <title>BlockChain</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Wallet Interface</h1>
-        <button id="createWalletBtn">Tạo Ví</button>
-        <button id="connectWalletBtn">Kết Nối Ví</button>
+    <div id="header-placeholder"></div>
+    <main>
 
-        <div id="createWalletField" class="input-field">
-            <h3>Nhập Mật Khẩu:</h3>
-            <input type="password" id="createPassword" placeholder="Nhập mật khẩu...">
-            <button class="submit-btn" onclick="handleCreateWallet()">Xác nhận</button>
-        </div>
+        <section class="collections">
+            <h2>Notable collections</h2>
+            <div class="collection-grid">
+                <div class="collection-card">
+                    <div class="card-image-container">
+                        <a href="detail.html?id=9001&collection=9dcc Black Box&price=0.04">
+                            <img src="https://placehold.co/400x300" alt="Collection">
+                        </a>
+                    </div>
+                    <div class="card-info">
+                        <h3>
+                            <a href="detail.html?id=9001&collection=9dcc Black Box&price=0.04"
+                                style="text-decoration: none; color: inherit;">
+                                9dcc Black Box
+                            </a>
+                        </h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.04 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>Total volume</span>
+                                <p>232 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="collection-card">
+                    <div class="card-image-container">
+                        <a href="detail.html?id=2"><img src="https://placehold.co/400x300" alt="Collection"></a>
 
-        <div id="connectWalletField" class="input-field">
-            <h3>Nhập Mật Khẩu:</h3>
-            <input type="password" id="connectPassword" placeholder="Nhập mật khẩu...">
-            <button class="submit-btn" onclick="handleConnectWallet()">Xác nhận</button>
-        </div>
-    </div>
+                    </div>
+                    <div class="card-info">
+                        <h3>Bored Ape Club</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.08 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>Total volume</span>
+                                <p>456 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
 
-    <script>
-        const createWalletBtn = document.getElementById('createWalletBtn');
-        const connectWalletBtn = document.getElementById('connectWalletBtn');
-        const createWalletField = document.getElementById('createWalletField');
-        const connectWalletField = document.getElementById('connectWalletField');
-        createWalletBtn.addEventListener('click', () => {
-            createWalletField.style.display = 'block';
-            connectWalletField.style.display = 'none';
-        });
-        connectWalletBtn.addEventListener('click', () => {
-            connectWalletField.style.display = 'block';
-            createWalletField.style.display = 'none';
-        });
-    
-        function CreateWalletApi(password) {
-            const DataPass = {
-                password: password
-            };
-            if (password != null) {
-                fetch('http://localhost:5000/generate-keys', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(DataPass)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Wallet_address:', data.Wallet_address);
-                    if (data.encrypted_private_key && data.iv && data.salt) {
-                        localStorage.setItem('encrypted_private_key', data.encrypted_private_key);
-                        localStorage.setItem('iv', data.iv);
-                        localStorage.setItem('salt', data.salt);
-                    } else {
-                        console.error('Dữ liệu từ API thiếu hoặc không hợp lệ.');
-                    }
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
+                <div class="collection-card">
+                    <div class="card-image-container">
+                        <a href="test1"><img src="https://placehold.co/400x300" alt="Collection"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>CryptoPunks</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.12 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>Total volume</span>
+                                <p>789 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="collection-card">
+                    <div class="card-image-container">
+                        <a href="test1"><img src="https://placehold.co/400x300" alt="Collection"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Art Blocks</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.15 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>Total volume</span>
+                                <p>567 ETH</p>
+                            </div>
+                        </div>
+                        <button class="buy-button">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="top-buys">
+            <h2>Top Collector Buys Today</h2>
+            <div class="buys-grid">
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>DeSciWorld Microbes</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.31 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>17 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Digital Dreams</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.25 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>22 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Pixel Masters</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.28 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>19 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Virtual Worlds</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.35 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>25 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+            </div>
+        </section>
+        <section class="top-buys">
+            <h2>Top Collector Buys Today</h2>
+            <div class="buys-grid">
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>DeSciWorld Microbes</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.31 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>17 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Digital Dreams</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.25 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>22 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Pixel Masters</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.28 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>19 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Virtual Worlds</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.35 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>25 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+            </div>
+        </section>
+        <section class="top-buys">
+            <h2>Top Collector Buys Today</h2>
+            <div class="buys-grid">
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>DeSciWorld Microbes</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.31 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>17 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Digital Dreams</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.25 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>22 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Pixel Masters</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.28 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>19 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Virtual Worlds</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.35 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>25 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+            </div>
+        </section>
+        <section class="top-buys">
+            <h2>Top Collector Buys Today</h2>
+            <div class="buys-grid">
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>DeSciWorld Microbes</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.31 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>17 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Digital Dreams</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.25 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>22 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Pixel Masters</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.28 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>19 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Virtual Worlds</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.35 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>25 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+            </div>
+        </section>
+        <section class="top-buys">
+            <h2>Top Collector Buys Today</h2>
+            <div class="buys-grid">
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>DeSciWorld Microbes</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.31 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>17 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Digital Dreams</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.25 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>22 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Pixel Masters</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.28 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>19 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+                <div class="buy-card">
+                    <div class="card-image-container">
+                        <a href="teest2"><img src="https://placehold.co/400x300" alt="NFT"></a>
+
+                    </div>
+                    <div class="card-info">
+                        <h3>Virtual Worlds</h3>
+                        <div class="stats">
+                            <div class="floor">
+                                <span>Floor</span>
+                                <p>0.35 ETH</p>
+                            </div>
+                            <div class="volume">
+                                <span>24h volume</span>
+                                <p>25 ETH</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="buy-button">Buy Now</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+<script>
+    async function loadHeader() {
+        try {
+            const response = await fetch('header.html');
+            const headerContent = await response.text();
+            document.getElementById('header-placeholder').innerHTML = headerContent;
+            initializeLoginButton();
+        } catch (error) {
+            console.error('Error loading header:', error);
+        }
+    }
+    function initializeLoginButton() {
+        const Btn_Login_logout = document.getElementById('Login_btn');
+        const Btn_Text = document.getElementById('btn-text');
+        const encrypted_private_key = localStorage.getItem('encrypted_private_key');
+
+        if (Btn_Login_logout && Btn_Text) {
+            if (encrypted_private_key) {
+                Btn_Text.textContent = 'Đăng xuất';
+                Btn_Login_logout.onclick = () => {
+                    window.location.href = 'logout.html';
+                };
             } else {
-                console.log('Password is empty!');
+                Btn_Text.textContent = 'Đăng nhập';
+                Btn_Login_logout.onclick = () => {
+                    window.location.href = 'login.html';
+                };
             }
         }
-        function handleCreateWallet() {
-            const password = document.getElementById('createPassword').value;
-            CreateWalletApi(password);
-        }
-        function Ping_Connect_Wallet(password) {
-            const encrypted_private_key = localStorage.getItem('encrypted_private_key');
-            const iv = localStorage.getItem('iv');
-            const salt = localStorage.getItem('salt');
-
-            // Kiểm tra dữ liệu từ LocalStorage
-            if (!encrypted_private_key || !iv || !salt) {
-                console.error('Dữ liệu LocalStorage bị thiếu!');
-                alert('Dữ liệu ví không đầy đủ. Vui lòng kiểm tra lại.');
-                return;
-            }
-
-            const DataCon = {
-                encrypted_private_key: encrypted_private_key,
-                iv: iv,
-                salt: salt,
-                password: password
-            };
-
-            fetch('http://localhost:5000/connect-wallet', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(DataCon)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Kết nối API thất bại!');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Code:', data.Code);
-                console.log('Decrypted Private Key:', data.decrypted_private_key);
-
-                if (data.Code === 200) {
-                    alert('Kết nối ví thành công!');
-                } else {
-                    alert('Mật khẩu không đúng hoặc dữ liệu không hợp lệ!');
-                }
-            })
-            .catch(error => {
-                console.error('Lỗi kết nối:', error);
-                alert('Kết nối API thất bại. Vui lòng thử lại!');
-            });
-        }
-
-        function handleConnectWallet() {
-            const password = document.getElementById('connectPassword').value;
-            if (!password) {
-                alert('⚠️ Vui lòng nhập mật khẩu!');
-                return;
-            }
-            Ping_Connect_Wallet(password);
-        }
-
-    </script>
-    
+    }
+    document.addEventListener('DOMContentLoaded', loadHeader);
+</script>
 </body>
 </html>

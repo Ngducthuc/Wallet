@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.wallet-info {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.balance {
+    background-color: #2a2a2a;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.profile-icon {
+    width: 32px;
+    height: 32px;
+    background-color: #3498db;
+    border-radius: 50%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #999;
+    margin-bottom: 30px;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.upload-section {
+    flex: 1;
+    min-width: 400px;
+}
+
+.form-section {
+    flex: 1;
+}
+
+.upload-area {
+    border: 2px dashed #444;
+    border-radius: 12px;
+    padding: 100px 20px;
+    text-align: center;
+    background-color: #222;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-icon {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.browse-text {
+    color: #3498db;
+    cursor: pointer;
+}
+
+.file-info {
+    color: #888;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.required {
+    color: #ff0000;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.create-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    float: right;
+}
+
+.create-button:hover {
+    background-color: #2980b9;
+}
+
+@media (max-width: 900px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .upload-section {
+        min-width: 100%;
+    }
+
+    .upload-area {
+        min-height: 400px;
+    }
+}

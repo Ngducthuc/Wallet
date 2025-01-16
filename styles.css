@@ -1,0 +1,521 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #13151C;
+    color: #fff;
+    min-height: 90%;
+}
+
+/* Main content styles */
+main {
+    max-width: 1527px;
+    margin: 0 auto;
+    padding: 1rem;
+    
+}
+/* Header styles */
+header {
+    background-color: rgba(19, 21, 28, 0.7);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    max-width: 1900px;
+    margin: 0 auto;
+}
+
+.logo img {
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #2081e2;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-bar input {
+    background: none;
+    border: none;
+    color: #fff;
+    width: 100%;
+    margin-left: 0.75rem;
+    font-size: 1rem;
+}
+
+.search-bar input:focus {
+    outline: none;
+}
+
+.search-bar i {
+    color: #666;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-right i {
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-right i:hover {
+    color: #2081e2;
+}
+
+.connect-wallet {
+    background-color: #2081e2;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.connect-wallet:hover {
+    background-color: #1569bd;
+    transform: translateY(-2px);
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.login-btn {
+    background-color: #2081e2;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #1569bd;
+    transform: translateY(-2px);
+}
+
+section {
+    margin-bottom: 4rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+/* Collection grid */
+.collection-grid, .buys-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.collection-card, .buy-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.card-image-container {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.collection-card img, .buy-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.buy-button {
+    background-color: #2081e2;
+    color: white;
+    padding: 12px 24px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border: none;
+    cursor: pointer;
+    width: 100%; /* Full width */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box; /* Ensure padding does not affect width */
+}
+
+.collection-card:hover .buy-button,
+.buy-card:hover .buy-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.collection-card:hover img,
+.buy-card:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.7);
+}
+
+.card-info {
+    padding: 1.5rem;
+}
+
+.card-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.floor, .volume {
+    font-size: 0.875rem;
+}
+
+.floor span, .volume span {
+    color: #888;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.floor p, .volume p {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    nav {
+        gap: 1.5rem;
+    }
+    
+    .nav-links {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .search-bar {
+        order: 3;
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .collection-grid, .buys-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 1.5rem;
+    }
+    
+    .collection-grid, .buys-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.product-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.product-image {
+    position: sticky;
+    top: 2rem;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    overflow: hidden;
+    max-height: calc(100vh - 4rem); /* Điều chỉnh chiều cao cho phù hợp */
+    margin-bottom: 0; /* Loại bỏ margin */
+    padding-bottom: 0; /* Đảm bảo không có padding */
+}
+
+.product-image img {
+    width: 100%;
+    height: auto; /* Đảm bảo hình ảnh không vượt quá kích thước */
+    display: block;
+    margin-bottom: 0; /* Xóa khoảng trống dưới hình ảnh */
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.collection-name {
+    color: #888;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.product-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.product-description {
+    background-color: #2a2a2a;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.description-text {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.description-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.stat-box {
+    background-color: #333;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.price-section {
+    background-color: #2a2a2a;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.current-price {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.eth-price, .usd-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.buy-now, .make-offer {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1;
+    transition: all 0.3s ease;
+    text-decoration: none;          
+    text-align: center;            
+    box-sizing: border-box;        /* Thêm để padding không ảnh hưởng kích thước */
+}
+
+.buy-now {
+    background-color: #0066ff;
+    color: white;
+}
+
+.make-offer {
+    background-color: transparent;
+    border: 1px solid #0066ff;
+    color: #0066ff;
+}
+
+.buy-now:hover, .make-offer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+}
+
+.traits-section {
+    margin-top: 1rem;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.traits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.trait-item {
+    background-color: #333;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.trait-name {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.trait-value {
+    font-size: 1rem;
+    color: #ddd;
+}
+
+.trait-rarity {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.additional-info {
+    background-color: #2a2a2a;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.info-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.info-content {
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.ownership-history {
+    margin-top: 1rem;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #333;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.price-history {
+    margin-top: 1rem;
+}

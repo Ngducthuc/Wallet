@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an NFT</title>
+    <link rel="stylesheet" href="createnft.css">
+</head>
+
+<body>
+    <div class="header">
+        <button class="back-button">←</button>
+        <div class="wallet-info">
+            <span class="balance">0 ETH</span>
+            <span class="balance">0 WETH</span>
+            <div class="profile-icon"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Create an NFT</h1>
+        <p class="subtitle">Once your item is minted you will not be able to change any of its information.</p>
+
+        <div class="content-wrapper">
+            <div class="upload-section">
+                <div class="upload-area">
+                    <div class="upload-icon">↑</div>
+                    <div>Drag and drop media</div>
+                    <div class="browse-text">Browse files</div>
+                    <div class="file-info">Max size: 50MB<br>JPG, PNG, GIF, SVG, MP4</div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <form>
+                    <div class="form-group">
+                        <label>Name <span class="required">*</span></label>
+                        <input type="text" placeholder="Name your NFT">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Supply <span class="required">*</span></label>
+                        <input type="number" value="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea placeholder="Enter a description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>External link</label>
+                        <input type="text" placeholder="https://collection.io/item/123">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="button-create"><button type="submit" class="create-button">Create</button></div>
+    </div>
+</body>
+
+</html>

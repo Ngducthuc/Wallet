@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Detail</title>
+    <link rel="stylesheet" href="header.html">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
+</head>
+<body>
+    <main class="product-container">
+        <div class="product-image">
+            <img src="https://placehold.co/600x600" alt="NFT Image">
+        </div>
+
+        <div class="product-details">
+            <div class="product-header">
+                <div class="collection-name">Koin Games Dev Squad</div>
+                <h1 class="product-title">#2769</h1>
+                <div class="product-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Views</div>
+                        <div class="stat-value">6,352</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Owners</div>
+                        <div class="stat-value">1</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-description">
+                <h2 class="info-title">Description</h2>
+                <p class="description-text">
+                    5555 Randomly Assembled Avatars using 500 Hand Drawn Assets that give you access to the KOIN GAMES DEV SQUAD and all its membership benefits! Come help us build an amazing Blockchain Game.
+                </p>
+                <div class="description-stats">
+                    <div class="stat-box">
+                        <div class="stat-box-label">Contract Address</div>
+                        <div class="stat-box-value">0x4a8b...3d9f</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-box-label">Token ID</div>
+                        <div class="stat-box-value">#2769</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="price-section">
+                <div class="current-price">
+                    <div class="eth-price">0.0838 ETH</div>
+                    <div class="usd-price">$282.01</div>
+                </div>
+                <div class="action-buttons">
+                    <a href="checkout.html" class="buy-now">Buy now</a>
+                    <a href="checkout.html" class="make-offer">Make offer</a>
+                </div>
+            </div>
+
+            <div class="traits-section">
+                <div class="section-title">Traits</div>
+                <div class="traits-grid">
+                    <div class="trait-item">
+                        <div class="trait-name">Background</div>
+                        <div class="trait-value">Purple</div>
+                        <div class="trait-rarity">12%</div>
+                    </div>
+                    <div class="trait-item">
+                        <div class="trait-name">Eyes</div>
+                        <div class="trait-value">Cheeky Drk</div>
+                        <div class="trait-rarity">16%</div>
+                    </div>
+                    <div class="trait-item">
+                        <div class="trait-name">Fur</div>
+                        <div class="trait-value">Powder</div>
+                        <div class="trait-rarity">21%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="additional-info">
+                <h2 class="info-title">Details</h2>
+                <div class="info-content">
+                    <div class="ownership-history">
+                        <div class="history-item">
+                            <span>Minted</span>
+                            <span>Mar 15, 2024</span>
+                        </div>
+                        <div class="history-item">
+                            <span>Creator Earnings</span>
+                            <span>5%</span>
+                        </div>
+                        <div class="history-item">
+                            <span>Chain</span>
+                            <span>Ethereum</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="price-history">
+                <div class="section-title">Price History</div>
+                <!-- Add price chart here -->
+            </div>
+        </div>
+    </main>
+    <script>
+        async function loadHeader() {
+            try {
+                const response = await fetch('header.html');
+                const headerContent = await response.text();
+                document.body.insertAdjacentHTML('afterbegin', headerContent);
+            } catch (error) {
+                console.error('Error loading header:', error);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', loadHeader);
+    </script>
+    
+</body>
+</html>

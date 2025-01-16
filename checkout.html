@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
+    <title>Checkout with MoonPay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .modal {
+            background-color: #1a1a1a;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 16px;
+            color: white;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        .product {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .product-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .fee-breakdown {
+            background: none;
+            border: 1px solid #444;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .wallet-section {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .wallet-card {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .wallet-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wallet-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #4c5eeb;
+            border-radius: 50%;
+        }
+
+        .wallet-address {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .copy-icon {
+            color: #666;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .continue-btn {
+            background-color: #333;
+            color: white;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .continue-btn span {
+            position: absolute;
+            right: 15px; 
+        }
+        
+        .continue-btn:hover {
+            background-color: #444;
+        }
+
+        .powered-by {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .moonpay-logo {
+            height: 20px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <div class="modal-header">
+            <h1 class="modal-title">Checkout with your wallet</h1>
+            <button class="close-btn"></button>
+        </div>
+        
+        <div class="modal-content">
+            <div class="product">
+                <div class="product-image">
+                    <img src="path-to-product-image.jpg" alt="Premium Satin Structure">
+                </div>
+                <h2 class="product-title">PREMIUM SATIN STRUCTURE...</h2>
+                <p class="product-price">Buying for 147,55 US$</p>
+                <button class="fee-breakdown">
+                    <i class="fa-solid fa-circle-info"></i> 
+                    View fee breakdown
+                </button>
+            </div>
+
+            <div class="wallet-section">
+                <h3 class="section-title">Sending collectible to</h3>
+                <div class="wallet-card">
+                    <div class="wallet-info">
+                        <img src="images/metamask.png" alt="MetaMask" class="wallet-icon">
+                        <span class="wallet-address">0x42be•••aa32fa</span>
+                    </div>
+                    <div class="copy-icon">📋</div>
+                </div>
+            </div>
+
+            <button class="continue-btn">
+                Continue
+                <span>→</span>
+            </button>
+
+            <div class="powered-by">
+                Powered by Nhom 9
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            // Thêm logic đóng modal
+            console.log('Modal closed');
+        });
+
+        document.querySelector('.fee-breakdown').addEventListener('click', () => {
+            // Thêm logic hiển thị breakdown
+            console.log('Show fee breakdown');
+        });
+
+        document.querySelector('.continue-btn').addEventListener('click', () => {
+            // Thêm logic xử lý continue
+            console.log('Continue checkout');
+        });
+
+        document.querySelector('.copy-icon').addEventListener('click', () => {
+            // Thêm logic copy địa chỉ ví
+            console.log('Copy wallet address');
+        });
+    </script>
+</body>
+</html>

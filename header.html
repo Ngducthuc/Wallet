@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
+    <title>BlockChain</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/"><img src="https://opensea.io/static/images/logos/opensea.svg" alt="Logo"></a>
+            </div>
+            <div class="nav-links">
+                <a href="#">Drops</a>
+                <a href="#">Stats</a>
+                <a href="createnft.html">Create</a>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="nav-right">
+                <button class="connect-wallet"><i class="ri-inbox-archive-line"></i> Kết nối ví</button>
+                <button class="login-btn" id="Login_btn">
+                    <i class="ri-login-box-line"></i> <span id="btn-text">Đăng nhập</span>
+                </button>
+                <a href="profile.html"><i class="ri-user-line"></i></a>
+                <i class="ri-shopping-cart-line"></i>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        async function loadHeader() {
+            try {
+                const response = await fetch('header.html');
+                const headerContent = await response.text();
+                const placeholder = document.createElement('div');
+                placeholder.innerHTML = headerContent;
+    
+                // Chèn nội dung header vào body
+                document.body.insertAdjacentElement('afterbegin', placeholder);
+    
+                // Thực thi các thẻ <script> trong header.html
+                const scripts = placeholder.querySelectorAll('script');
+                scripts.forEach((script) => {
+                    const newScript = document.createElement('script');
+                    if (script.src) {
+                        // Nếu <script> có src, sao chép src
+                        newScript.src = script.src;
+                    } else {
+                        // Nếu <script> không có src, sao chép nội dung
+                        newScript.textContent = script.textContent;
+                    }
+                    document.body.appendChild(newScript); // Thực thi script
+                });
+    
+                // Khởi tạo lại các sự kiện hoặc logic cần thiết
+                initializeLoginButton();
+            } catch (error) {
+                console.error('Error loading header:', error);
+            }
+        }
+    
+        function initializeLoginButton() {
+            const Btn_Login_logout = document.getElementById('Login_btn');
+            const Btn_Text = document.getElementById('btn-text');
+            const encrypted_private_key = localStorage.getItem('encrypted_private_key');
+    
+            if (encrypted_private_key) {
+                Btn_Text.textContent = 'Đăng xuất';
+                Btn_Login_logout.onclick = () => {
+                    window.location.href = 'logout.html';
+                };
+            } else {
+                Btn_Text.textContent = 'Đăng nhập';
+                Btn_Login_logout.onclick = () => {
+                    window.location.href = 'login.html';
+                };
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', loadHeader);
+    </script>    
+</body>
+
+</html>
